@@ -1,0 +1,22 @@
+{
+  "name": "cursor-traffic-light",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A desktop traffic-light widget that visualizes Cursor AI workflow status",
+  "workspaces": [
+    "widget",
+    "extension"
+  ],
+  "scripts": {
+    "widget": "npm --workspace widget run start",
+    "widget:install": "npm --workspace widget install",
+    "hooks:install": "cd hooks-bridge && npm install",
+    "install:all": "npm install && npm run widget:install && npm run hooks:install",
+    "test:client": "node scripts/test-client.js"
+  },
+  "author": "Cursor Tools",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.7.7"
+  }
+}

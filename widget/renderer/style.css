@@ -1,0 +1,266 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+html,
+body {
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ── 外壳 ──────────────────────────────────────────── */
+.light-box {
+  -webkit-app-region: drag;
+  position: relative;
+  width: 90px;
+  height: 240px;
+  margin: 8px auto;
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 16px;
+  border: 2px solid #444;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── 单灯基础样式 — 灭灯时显示暗色调本色 ────────────── */
+.light {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0.45;
+}
+
+/* 灭灯状态下各灯本色 (暗红/暗黄/暗绿, 能看出颜色) */
+.light.red {
+  background: radial-gradient(circle at 30% 30%, #5a3030, #3a1010);
+  box-shadow: none;
+}
+.light.yellow {
+  background: radial-gradient(circle at 30% 30%, #5a5020, #3a3000);
+  box-shadow: none;
+}
+.light.green {
+  background: radial-gradient(circle at 30% 30%, #2a3a2a, #0a2a0a);
+  box-shadow: none;
+}
+
+/* ── 亮灯通用 ──────────────────────────────────────── */
+.light.red.on {
+  background: radial-gradient(circle at 30% 30%, #ff8a8a, #ff2222 60%, #b00000);
+  opacity: 1;
+  box-shadow: 0 0 18px 4px rgba(255, 60, 60, 0.7);
+}
+.light.yellow.on {
+  background: radial-gradient(circle at 30% 30%, #fff3a0, #ffcc00 55%, #b88a00);
+  opacity: 1;
+  box-shadow: 0 0 18px 4px rgba(255, 204, 0, 0.7);
+}
+.light.green.on {
+  background: radial-gradient(circle at 30% 30%, #aef0a8, #2ecc40 55%, #178a23);
+  opacity: 1;
+  box-shadow: 0 0 18px 4px rgba(46, 204, 64, 0.7);
+}
+
+/* ═══════════════════════════════════════════════════════
+   状态灯效
+   ═══════════════════════════════════════════════════════ */
+
+/*
+ * idle — 空闲: 三灯保留本色暗光, 无动画无光晕
+ */
+.light-box[data-status="idle"] .light {
+  animation: none;
+}
+/* 恢复灭灯本色 (可能被其他状态的 animation 覆盖了) */
+.light-box[data-status="idle"] .light.red {
+  background: radial-gradient(circle at 30% 30%, #5a3030, #3a1010);
+  opacity: 0.45;
+  box-shadow: none;
+}
+.light-box[data-status="idle"] .light.yellow {
+  background: radial-gradient(circle at 30% 30%, #5a5020, #3a3000);
+  opacity: 0.45;
+  box-shadow: none;
+}
+.light-box[data-status="idle"] .light.green {
+  background: radial-gradient(circle at 30% 30%, #2a3a2a, #0a2a0a);
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+/*
+ * thinking — 连贯跑马灯: 绿→黄→红
+ */
+.light-box[data-status="thinking"] .light.red   { animation: think-red    1.5s ease-in-out infinite; }
+.light-box[data-status="thinking"] .light.yellow { animation: think-yellow 1.5s ease-in-out infinite; }
+.light-box[data-status="thinking"] .light.green  { animation: think-green  1.5s ease-in-out infinite; }
+
+@keyframes think-green {
+  0%, 28% {
+    background: radial-gradient(circle at 30% 30%, #aef0a8, #2ecc40 55%, #178a23);
+    opacity: 1;
+    box-shadow: 0 0 18px 4px rgba(46, 204, 64, 0.7);
+  }
+  33%, 100% {
+    background: radial-gradient(circle at 30% 30%, #2a3a2a, #0a2a0a);
+    opacity: 0.45;
+    box-shadow: none;
+  }
+}
+@keyframes think-yellow {
+  0%, 28% {
+    background: radial-gradient(circle at 30% 30%, #5a5020, #3a3000);
+    opacity: 0.45;
+    box-shadow: none;
+  }
+  33%, 61% {
+    background: radial-gradient(circle at 30% 30%, #fff3a0, #ffcc00 55%, #b88a00);
+    opacity: 1;
+    box-shadow: 0 0 18px 4px rgba(255, 204, 0, 0.7);
+  }
+  66%, 100% {
+    background: radial-gradient(circle at 30% 30%, #5a5020, #3a3000);
+    opacity: 0.45;
+    box-shadow: none;
+  }
+}
+@keyframes think-red {
+  0%, 61% {
+    background: radial-gradient(circle at 30% 30%, #5a3030, #3a1010);
+    opacity: 0.45;
+    box-shadow: none;
+  }
+  66%, 94% {
+    background: radial-gradient(circle at 30% 30%, #ff8a8a, #ff2222 60%, #b00000);
+    opacity: 1;
+    box-shadow: 0 0 18px 4px rgba(255, 60, 60, 0.7);
+  }
+  100% {
+    background: radial-gradient(circle at 30% 30%, #5a3030, #3a1010);
+    opacity: 0.45;
+    box-shadow: none;
+  }
+}
+
+/*
+ * busy — 黄灯慢闪: 暗黄 ↔ 亮黄, 红绿灯保持暗本色
+ */
+.light-box[data-status="busy"] .light.red   { animation: none; background: radial-gradient(circle at 30% 30%, #5a3030, #3a1010); opacity: 0.45; box-shadow: none; }
+.light-box[data-status="busy"] .light.green  { animation: none; background: radial-gradient(circle at 30% 30%, #2a3a2a, #0a2a0a); opacity: 0.45; box-shadow: none; }
+.light-box[data-status="busy"] .light.yellow { animation: busy-blink 0.8s ease-in-out infinite; }
+
+@keyframes busy-blink {
+  0%, 49.999% {
+    background: radial-gradient(circle at 30% 30%, #fff3a0, #ffcc00 55%, #b88a00);
+    opacity: 1;
+    box-shadow: 0 0 18px 4px rgba(255, 204, 0, 0.7);
+  }
+  50%, 100% {
+    background: radial-gradient(circle at 30% 30%, #5a5020, #3a3000);
+    opacity: 0.45;
+    box-shadow: none;
+  }
+}
+
+/*
+ * success — 绿灯常亮, 红黄灯暗本色
+ */
+.light-box[data-status="success"] .light.red    { animation: none; background: radial-gradient(circle at 30% 30%, #5a3030, #3a1010); opacity: 0.45; box-shadow: none; }
+.light-box[data-status="success"] .light.yellow  { animation: none; background: radial-gradient(circle at 30% 30%, #5a5020, #3a3000); opacity: 0.45; box-shadow: none; }
+.light-box[data-status="success"] .light.green   { animation: none; background: radial-gradient(circle at 30% 30%, #aef0a8, #2ecc40 55%, #178a23); opacity: 1; box-shadow: 0 0 18px 4px rgba(46, 204, 64, 0.7); }
+
+/*
+ * error — 红灯快闪, 黄绿灯暗本色
+ */
+.light-box[data-status="error"] .light.red     { animation: error-blink 0.4s ease-in-out infinite; }
+.light-box[data-status="error"] .light.yellow  { animation: none; background: radial-gradient(circle at 30% 30%, #5a5020, #3a3000); opacity: 0.45; box-shadow: none; }
+.light-box[data-status="error"] .light.green   { animation: none; background: radial-gradient(circle at 30% 30%, #2a3a2a, #0a2a0a); opacity: 0.45; box-shadow: none; }
+
+@keyframes error-blink {
+  0%, 49.999% {
+    background: radial-gradient(circle at 30% 30%, #ff8a8a, #ff2222 60%, #b00000);
+    opacity: 1;
+    box-shadow: 0 0 18px 4px rgba(255, 60, 60, 0.7);
+  }
+  50%, 100% {
+    background: radial-gradient(circle at 30% 30%, #5a3030, #3a1010);
+    opacity: 0.45;
+    box-shadow: none;
+  }
+}
+
+/*
+ * alarm — 红黄交替警灯, 绿灯暗本色
+ */
+.light-box[data-status="alarm"] .light.red    { animation: alarm-red    1s steps(1, end) infinite; }
+.light-box[data-status="alarm"] .light.yellow { animation: alarm-yellow 1s steps(1, end) infinite; }
+.light-box[data-status="alarm"] .light.green  { animation: none; background: radial-gradient(circle at 30% 30%, #2a3a2a, #0a2a0a); opacity: 0.45; box-shadow: none; }
+
+@keyframes alarm-red {
+  0%, 49.999% {
+    background: radial-gradient(circle at 30% 30%, #ff8a8a, #ff2222 60%, #b00000);
+    opacity: 1;
+    box-shadow: 0 0 18px 4px rgba(255, 60, 60, 0.7);
+  }
+  50%, 100% {
+    background: radial-gradient(circle at 30% 30%, #5a3030, #3a1010);
+    opacity: 0.45;
+    box-shadow: none;
+  }
+}
+@keyframes alarm-yellow {
+  0%, 49.999% {
+    background: radial-gradient(circle at 30% 30%, #5a5020, #3a3000);
+    opacity: 0.45;
+    box-shadow: none;
+  }
+  50%, 100% {
+    background: radial-gradient(circle at 30% 30%, #fff3a0, #ffcc00 55%, #b88a00);
+    opacity: 1;
+    box-shadow: 0 0 18px 4px rgba(255, 204, 0, 0.7);
+  }
+}
+
+/* ── 连接指示灯 ─────────────────────────────────────── */
+.conn-dot {
+  -webkit-app-region: no-drag;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #555;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  transition: background 0.2s;
+}
+.conn-dot.connected {
+  background: #2ecc40;
+  box-shadow: 0 0 6px rgba(46, 204, 64, 0.7);
+}
+
+/* ── 状态标签 ───────────────────────────────────────── */
+.label {
+  -webkit-app-region: no-drag;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  pointer-events: none;
+}

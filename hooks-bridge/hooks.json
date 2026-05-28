@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [
+      {
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" turn-start",
+        "matcher": "UserPromptSubmit"
+      }
+    ],
+    "preToolUse": [
+      {
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" await-user",
+        "matcher": "AskQuestion"
+      },
+      {
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" busy"
+      }
+    ],
+    "postToolUse": [
+      {
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" plan-created",
+        "matcher": "CreatePlan"
+      }
+    ],
+    "postToolUseFailure": [
+      {
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" denied"
+      }
+    ],
+    "afterAgentResponse": [
+      {
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" plan-detect",
+        "matcher": "AgentResponse"
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" plan-file"
+      }
+    ],
+    "stop": [
+      {
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" stop",
+        "matcher": "Stop"
+      }
+    ],
+    "sessionEnd": [
+      {
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" idle"
+      }
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "cursor-traffic-light",
+  "displayName": "Cursor Traffic Light",
+  "description": "Sync a desktop traffic-light widget with Cursor / VS Code AI workflow state",
+  "version": "0.1.0",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "trafficLight.developing", "title": "Traffic Light: 开发中 (黄)" },
+      { "command": "trafficLight.needConfirm", "title": "Traffic Light: 需要确认 (红黄闪烁)" },
+      { "command": "trafficLight.done", "title": "Traffic Light: 完成 (绿)" },
+      { "command": "trafficLight.idle", "title": "Traffic Light: 空闲" },
+      { "command": "trafficLight.reconnect", "title": "Traffic Light: 重新连接挂件" }
+    ],
+    "keybindings": [
+      { "command": "trafficLight.developing", "key": "ctrl+alt+1" },
+      { "command": "trafficLight.needConfirm", "key": "ctrl+alt+2" },
+      { "command": "trafficLight.done", "key": "ctrl+alt+3" },
+      { "command": "trafficLight.idle", "key": "ctrl+alt+0" }
+    ],
+    "configuration": {
+      "title": "Cursor Traffic Light",
+      "properties": {
+        "trafficLight.widgetUrl": {
+          "type": "string",
+          "default": "ws://localhost:17654",
+          "description": "WebSocket address of the desktop widget."
+        },
+        "trafficLight.autoDetect": {
+          "type": "boolean",
+          "default": true,
+          "description": "Heuristically detect AI generation activity from editor changes."
+        },
+        "trafficLight.idleAfterMs": {
+          "type": "number",
+          "default": 2000,
+          "description": "Milliseconds of no edit activity before switching from 'developing' to 'done'."
+        },
+        "trafficLight.burstCharThreshold": {
+          "type": "number",
+          "default": 50,
+          "description": "If more than this many characters are inserted within 200ms, treat as AI burst."
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0"
+  }
+}
