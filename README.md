@@ -2,6 +2,9 @@
 
 桌面红绿灯挂件，通过 **Cursor Hooks** 实时感知 Cursor Agent 的工作状态，用红绿灯动画直观展示 AI 编程全流程。
 
+## 安装包
+前往[releases](https://github.com/pubby502/cursor-light-desktop/releases)下载使用
+
 ## 状态映射
 
 | 状态 | 灯效 | 含义 | Cursor Agent 事件 |
