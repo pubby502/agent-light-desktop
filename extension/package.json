@@ -1,7 +1,7 @@
 {
-  "name": "cursor-traffic-light",
-  "displayName": "Cursor Traffic Light",
-  "description": "Sync a desktop traffic-light widget with Cursor / VS Code AI workflow state",
+  "name": "agent-traffic-light",
+  "displayName": "Agent Traffic Light",
+  "description": "Sync a desktop traffic-light widget with AI Agent workflow state",
   "version": "0.1.0",
   "publisher": "local",
   "engines": {
@@ -25,7 +25,7 @@
       { "command": "trafficLight.idle", "key": "ctrl+alt+0" }
     ],
     "configuration": {
-      "title": "Cursor Traffic Light",
+      "title": "Agent Traffic Light",
       "properties": {
         "trafficLight.widgetUrl": {
           "type": "string",

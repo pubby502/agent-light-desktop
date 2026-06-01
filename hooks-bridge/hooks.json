@@ -1,52 +1,52 @@
 {
-  "version": 1,
+  "version": 2,
   "hooks": {
     "beforeSubmitPrompt": [
       {
-        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" turn-start",
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\cursor-bridge.js\" turn-start",
         "matcher": "UserPromptSubmit"
       }
     ],
     "preToolUse": [
       {
-        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" await-user",
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\cursor-bridge.js\" await-user",
         "matcher": "AskQuestion"
       },
       {
-        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" busy"
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\cursor-bridge.js\" busy"
       }
     ],
     "postToolUse": [
       {
-        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" plan-created",
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\cursor-bridge.js\" plan-created",
         "matcher": "CreatePlan"
       }
     ],
     "postToolUseFailure": [
       {
-        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" denied"
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\cursor-bridge.js\" denied"
       }
     ],
     "afterAgentResponse": [
       {
-        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" plan-detect",
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\cursor-bridge.js\" plan-detect",
         "matcher": "AgentResponse"
       }
     ],
     "afterFileEdit": [
       {
-        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" plan-file"
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\cursor-bridge.js\" plan-file"
       }
     ],
     "stop": [
       {
-        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" stop",
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\cursor-bridge.js\" stop",
         "matcher": "Stop"
       }
     ],
     "sessionEnd": [
       {
-        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\agent-light.js\" idle"
+        "command": "node \"%USERPROFILE%\\.cursor\\hooks\\traffic-light\\cursor-bridge.js\" idle"
       }
     ]
   }

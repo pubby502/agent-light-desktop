@@ -1,9 +1,6 @@
 #!/usr/bin/env node
-/**
- * Hook: denied — 工具调用失败时触发
- * postToolUseFailure
- */
+// LEGACY: 当前 hooks.json 直接调用 cursor-bridge.js，不使用此包装脚本。
 const { execSync } = require('child_process');
 const path = require('path');
-const script = path.join(__dirname, 'agent-light.js');
+const script = path.join(__dirname, 'cursor-bridge.js');
 try { execSync(`node "${script}" denied`, { stdio: 'inherit', timeout: 5000 }); } catch {}

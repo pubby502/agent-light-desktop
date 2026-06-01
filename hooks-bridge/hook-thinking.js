@@ -1,8 +1,6 @@
 #!/usr/bin/env node
-/**
- * Hook: thinking — Agent 思考/分析时触发 (beforeSubmitPrompt 的通用入口)
- */
+// LEGACY: 当前 hooks.json 直接调用 cursor-bridge.js，不使用此包装脚本。
 const { execSync } = require('child_process');
 const path = require('path');
-const script = path.join(__dirname, 'agent-light.js');
+const script = path.join(__dirname, 'cursor-bridge.js');
 try { execSync(`node "${script}" thinking`, { stdio: 'inherit', timeout: 5000 }); } catch {}

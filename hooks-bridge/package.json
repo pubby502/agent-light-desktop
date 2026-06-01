@@ -2,7 +2,7 @@
   "name": "traffic-light-hooks",
   "version": "0.2.0",
   "private": true,
-  "description": "Cursor Hooks bridge for Traffic Light widget",
+  "description": "Agent Hooks bridge for Traffic Light widget",
   "main": "agent-light.js",
   "dependencies": {
     "ws": "^8.18.0"

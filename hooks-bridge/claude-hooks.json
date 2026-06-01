@@ -1,0 +1,82 @@
+{
+  "_comment": "Claude Code hooks 配置模板 — 由 install.ps1 自动合并到 settings.json",
+  "_install": "运行 install.ps1 自动配置，或手动将 hooks 条目合并到 settings.json 的 hooks 段",
+  "_format": "Claude Code 要求 command 嵌套在 hooks[{type, command}] 内",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"__BRIDGE_DIR__\\claude-bridge.js\" turn-start"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"__BRIDGE_DIR__\\claude-bridge.js\" await-user"
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"__BRIDGE_DIR__\\claude-bridge.js\" busy"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "CreatePlan",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"__BRIDGE_DIR__\\claude-bridge.js\" plan-created"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"__BRIDGE_DIR__\\claude-bridge.js\" denied"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"__BRIDGE_DIR__\\claude-bridge.js\" stop"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"__BRIDGE_DIR__\\claude-bridge.js\" idle"
+          }
+        ]
+      }
+    ]
+  }
+}

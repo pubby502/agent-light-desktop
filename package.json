@@ -1,8 +1,8 @@
 {
-  "name": "cursor-traffic-light",
+  "name": "agent-traffic-light",
   "version": "0.1.0",
   "private": true,
-  "description": "A desktop traffic-light widget that visualizes Cursor AI workflow status",
+  "description": "A desktop traffic-light widget that visualizes AI Agent workflow status",
   "workspaces": [
     "widget",
     "extension"
@@ -14,7 +14,7 @@
     "install:all": "npm install && npm run widget:install && npm run hooks:install",
     "test:client": "node scripts/test-client.js"
   },
-  "author": "Cursor Tools",
+  "author": "Agent Tools",
   "license": "MIT",
   "devDependencies": {
     "electron": "^31.7.7"

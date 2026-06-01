@@ -1,0 +1,12 @@
+{
+  "lastHookTs": 1780297862180,
+  "awaitingUser": false,
+  "turnPhase": "busy",
+  "lastMode": "busy",
+  "lastTs": 1780297862180,
+  "awaitingBuild": false,
+  "buildStarted": false,
+  "planTouched": false,
+  "authPending": false,
+  "turnStartedMs": 1780297851856
+}

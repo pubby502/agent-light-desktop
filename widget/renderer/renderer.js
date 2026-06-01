@@ -1,6 +1,7 @@
 const box = document.getElementById('lightBox');
 const connDot = document.getElementById('connDot');
 const label = document.getElementById('label');
+const agentLabel = document.getElementById('agentLabel');
 
 const LABELS = {
   idle: 'IDLE',
@@ -9,6 +10,11 @@ const LABELS = {
   success: 'DONE',
   error: 'ERROR',
   alarm: 'ALARM',
+};
+
+const AGENT_NAMES = {
+  cursor: 'CURSOR',
+  claude: 'CLAUDE',
 };
 
 // ── 超时配置 ──────────────────────────────────────────
@@ -23,7 +29,7 @@ const TIMEOUTS = {
 let timeoutId = null;
 let currentStatus = 'idle';
 
-// ── 心跳指示: 最近 30 秒有 Hook 活动 → 绿灯 ───────────
+// ── 心跳指示 ──────────────────────────────────────────
 const HEARTBEAT_MS = 30 * 1000;
 let lastActivity = 0;
 let heartbeatId = null;
@@ -44,7 +50,6 @@ function applyStatus(value) {
   box.dataset.status = value;
   label.textContent = LABELS[value];
 
-  // 心跳: 收到状态 → 记录活动时间
   lastActivity = Date.now();
   updateHeartbeat();
 
@@ -59,20 +64,27 @@ function applyStatus(value) {
 }
 
 function applyConnection(connected) {
-  // 连接变化时也刷新心跳 (但主要靠 applyStatus 驱动)
   if (connected) {
     lastActivity = Date.now();
     updateHeartbeat();
   }
 }
 
-// 每秒检查心跳
+function applyAgent(agent) {
+  if (agentLabel) {
+    agentLabel.textContent = AGENT_NAMES[agent] || agent.toUpperCase();
+  }
+  if (box) box.dataset.agent = agent;
+}
+
 heartbeatId = setInterval(updateHeartbeat, 1000);
 
 window.electronAPI.onStatus(applyStatus);
 window.electronAPI.onConnectionChanged(applyConnection);
+window.electronAPI.onAgentChanged(applyAgent);
 
 (async () => {
   const init = await window.electronAPI.getInitial();
   applyConnection(init.connected);
+  if (init.agent) applyAgent(init.agent);
 })();

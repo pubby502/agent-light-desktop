@@ -26,7 +26,8 @@ function startServer({ onStatus, onConnectionChange }) {
         return;
       }
       if (msg && msg.type === 'status' && VALID_STATUSES.has(msg.value)) {
-        onStatus && onStatus(msg.value);
+        // 透传 agent 字段（如果 bridge 发送了）
+        onStatus && onStatus(msg.value, msg.agent || null);
       }
     });
 

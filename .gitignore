@@ -7,3 +7,6 @@ out/
 Thumbs.db
 .vscode-test/
 package-lock.json
+.claude/*
+!.claude/settings.json
+/.codegraph/

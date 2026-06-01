@@ -1,4 +1,4 @@
-# Cursor Traffic Light Extension (Legacy)
+# Agent Traffic Light Extension (Legacy)
 
 > **注意**: VS Code 扩展方案已被 **Cursor Hooks 桥接** 替代。
 > 新方案通过 `hooks-bridge/agent-light.js` 直接利用 Cursor 原生 Hooks 获取 Agent 事件,

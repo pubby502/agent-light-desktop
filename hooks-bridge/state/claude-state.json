@@ -1,0 +1,11 @@
+{
+  "turnPhase": "",
+  "lastHookTs": 1780298736889,
+  "lastMode": "idle",
+  "lastTs": 1780298736889,
+  "authPending": false,
+  "awaitingBuild": false,
+  "buildStarted": false,
+  "planTouched": false,
+  "turnStartedMs": 1780296589186
+}

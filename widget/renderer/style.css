@@ -25,7 +25,7 @@ body {
   border-radius: 16px;
   border: 2px solid #444;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  padding: 12px 0;
+  padding: 8px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -254,7 +254,7 @@ body {
 .label {
   -webkit-app-region: no-drag;
   position: absolute;
-  bottom: -4px;
+  bottom: 0;
   left: 0;
   right: 0;
   text-align: center;
@@ -264,3 +264,19 @@ body {
   letter-spacing: 1.5px;
   pointer-events: none;
 }
+
+/* ── Agent 标签（顶部，与底部状态标签对称） ────────── */
+.agent-label {
+  -webkit-app-region: no-drag;
+  text-align: center;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  pointer-events: none;
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.light-box[data-agent="cursor"] .agent-label { color: #5b9eff; }
+.light-box[data-agent="claude"]  .agent-label { color: #ff8c32; }
